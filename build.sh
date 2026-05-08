@@ -2,7 +2,7 @@
 set -e
 
 KERNEL_SRC=https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
-REV=refs/tags/v7.0-rc2
+REV=refs/tags/v7.0
 
 rm -rf linux
 git clone --reference-if-able ../linux --revision="$REV" "$KERNEL_SRC" linux
