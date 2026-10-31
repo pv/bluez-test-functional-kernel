@@ -20,7 +20,7 @@ export KBUILD_BUILD_HOST=localhost
 export CONFIG_HASH=$(sha256sum tester.config | cut -c1-8)
 
 make -C linux olddefconfig
-make -C linux -j12
+make -C linux -j$(nproc)
 
 BZIMAGE="bzImage-${BRANCH}-cfg${CONFIG_HASH}"
 UML="linux-uml-${BRANCH}-cfg${CONFIG_HASH}"
@@ -33,7 +33,7 @@ make mrproper
 make ARCH=um defconfig
 scripts/kconfig/merge_config.sh -m .config ../tester.config
 scripts/config -e HOSTFS -e VIRTIO_UML -e UML_TIME_TRAVEL_SUPPORT
-make ARCH=um olddefconfig linux
+make ARCH=um olddefconfig linux -j$(nproc)
 popd
 
 cp -f linux/linux "$UML"
