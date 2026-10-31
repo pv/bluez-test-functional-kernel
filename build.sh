@@ -3,10 +3,11 @@ set -e
 
 KERNEL_SRC=https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
 REV=refs/tags/v7.3
+TAGS="tag v7.3"
 
 rm -rf linux
 git clone --reference-if-able ../linux --revision="$REV" --depth 2 "$KERNEL_SRC" linux
-git -C linux fetch --tags
+git -C linux fetch origin $TAGS --no-tags
 
 BRANCH=$(git -C linux describe HEAD)
 
